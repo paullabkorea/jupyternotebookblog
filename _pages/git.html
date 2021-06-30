@@ -4,12 +4,12 @@ permalink: /gitInfo/
 title: gitInfo
 search_exclude: true
 ---
-<img src="https://ghchart.rshah.org/paullabkorea" alt="" style="width: 660px; height: 100px;">
+<img src="https://ghchart.rshah.org/{{site.github_username}}" alt="" style="width: 660px; height: 100px;">
 <ul id="repos">
 <script>
 // 비동기 작업을 위해 async function 선언
 const initRepo = async () =>{
-        const _username = paullabkorea
+        const _username = {{site.github_username}}
 				// 추가할 dom선택
         const repoUl = document.getElementById("repos")
 
