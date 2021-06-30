@@ -25,33 +25,15 @@ const initRepo = async () =>{
 
         // json내용을 map을 이용해 각 dom을 만들고 추가
         repoJson.map((repos)=>{
-            let ul = document.createElement("ul")
-            ul.className = "repoUl"
-            ul.textContent = repos.name
-            ul.style.fontSize = '24px'
-            ul.style.fontWeight = "600"
+            let h2Element = document.createElement("h2")
+            h2Element.textContent = repos.name
 
-            let urlLi = document.createElement("li")
+            let pElementDesc = document.createElement("p")
+            pElementDesc.textContent = "레포설명 : " + repos.description
 
-            let desc = document.createElement("li")
-            desc.className = "repoDesc"
-            desc.textContent = "레포설명 : "+repos.description
-            desc.style.fontSize = '16px'
-            desc.style.fontWeight = "400"
-
-            let url = document.createElement("a")
-            url.className = "repoUrlLi"
-            url.href = repos.svn_url
-            url.textContent = repos.svn_url
-            url.style.fontSize = '16px'
-            url.style.fontWeight = "400"
-            urlLi.append(url)
-
-            // ul에 각 li요소들 추가
-            ul.append(urlLi)
-            ul.append(desc)
-            repoUl.append(ul)
-            repoUl.append(document.createElement("br"))
+            let urlElement = document.createElement("a")
+            urlElement.href = repos.svn_url
+            urlElement.textContent = repos.svn_url
         })
     }
     initRepo()
