@@ -1,0 +1,52 @@
+---
+layout: default
+permalink: /gitInfo/
+title: gitInfo
+search_exclude: true
+---
+<img src="https://ghchart.rshah.org/paullabkorea" alt="" style="width: 660px; height: 100px;">
+<ul id="repos">
+<script>
+// 비동기 작업을 위해 async function 선언
+const initRepo = async () =>{
+        const _username = paullabkorea
+				// 추가할 dom선택
+        const repoUl = document.getElementById("repos")
+
+				// headers 설명 : 깃허브에 요청할 형식 지정
+        let response = await fetch('https://api.github.com/users/paullabkorea/repos',
+        {headers:{
+            'Accept' : 'application/vnd.github.v3+json'
+        }});
+        const repoJson = await response.json()
+        // repo받아온 내용 확인
+				// console.log(repoJson);
+
+				// json내용을 map을 이용해 각 dom을 만들고 추가
+        repoJson.map((repos)=>{
+            let ul = document.createElement("ul")
+            ul.className = "repoUl"
+            ul.textContent = repos.name
+
+            let urlLi = document.createElement("li")
+
+            let desc = document.createElement("li")
+            desc.className = "repoDesc"
+            desc.textContent = "레포설명 : "+repos.description
+
+            let url = document.createElement("a")
+            url.className = "repoUrlLi"
+            url.href = repos.svn_url
+            url.textContent = repos.svn_url
+            urlLi.append(url)
+
+						// ul에 각 li요소들 추가
+            ul.append(urlLi)
+            ul.append(desc)
+            repoUl.append(ul)
+            repoUl.append(document.createElement("br"))
+            
+        })
+    }
+    initRepo()
+</script>
