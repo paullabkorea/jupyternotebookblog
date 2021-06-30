@@ -20,13 +20,15 @@ const initRepo = async () =>{
         }});
         const repoJson = await response.json()
         // repo받아온 내용 확인
-				// console.log(repoJson);
+		// console.log(repoJson);
 
-				// json내용을 map을 이용해 각 dom을 만들고 추가
+		// json내용을 map을 이용해 각 dom을 만들고 추가
         repoJson.map((repos)=>{
             let ul = document.createElement("ul")
             ul.className = "repoUl"
             ul.textContent = repos.name
+            ul.style.fontSize = '24px'
+            ul.style.fontWeight = "600"
 
             let urlLi = document.createElement("li")
 
@@ -40,7 +42,7 @@ const initRepo = async () =>{
             url.textContent = repos.svn_url
             urlLi.append(url)
 
-						// ul에 각 li요소들 추가
+			// ul에 각 li요소들 추가
             ul.append(urlLi)
             ul.append(desc)
             repoUl.append(ul)
