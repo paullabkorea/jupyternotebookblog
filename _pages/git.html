@@ -5,7 +5,7 @@ title: gitInfo
 search_exclude: true
 ---
 <img src="https://ghchart.rshah.org/paullabkorea" alt="" style="width: 660px; height: 100px;">
-<ul id="repos">
+<div id="repos">
 <script>
 // 비동기 작업을 위해 async function 선언
 const initRepo = async () =>{
@@ -31,9 +31,15 @@ const initRepo = async () =>{
             let pElementDesc = document.createElement("p")
             pElementDesc.textContent = "레포설명 : " + repos.description
 
-            let urlElement = document.createElement("a")
-            urlElement.href = repos.svn_url
-            urlElement.textContent = repos.svn_url
+            let aElementURL = document.createElement("a")
+            aElementURL.href = repos.svn_url
+            aElementURL.textContent = repos.svn_url
+
+            //각 요소를 <div id="repos">에 추가
+            repoUl.append(h2Element)
+            repoUl.append(pElementDesc)
+            repoUl.append(aElementURL)
+            repoUl.append(document.createElement("br"))
         })
     }
     initRepo()
