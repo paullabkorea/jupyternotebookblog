@@ -4,17 +4,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Tags | JejuCodingBaseCamp</title>
+<title>gitlanginfo | JejuCodingBaseCamp</title>
 <meta name="generator" content="Jekyll v4.1.1" />
-<meta property="og:title" content="Tags" />
+<meta property="og:title" content="gitlanginfo" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="An easy to use blogging platform with support for Jupyter Notebooks." />
 <meta property="og:description" content="An easy to use blogging platform with support for Jupyter Notebooks." />
-<link rel="canonical" href="https://paullabkorea.github.io/jupyternotebookblog/categories/" />
-<meta property="og:url" content="https://paullabkorea.github.io/jupyternotebookblog/categories/" />
+<link rel="canonical" href="https://paullabkorea.github.io/jupyternotebookblog/gitlanginfo/" />
+<meta property="og:url" content="https://paullabkorea.github.io/jupyternotebookblog/gitlanginfo/" />
 <meta property="og:site_name" content="JejuCodingBaseCamp" />
 <script type="application/ld+json">
-{"description":"An easy to use blogging platform with support for Jupyter Notebooks.","url":"https://paullabkorea.github.io/jupyternotebookblog/categories/","@type":"WebPage","headline":"Tags","@context":"https://schema.org"}</script>
+{"description":"An easy to use blogging platform with support for Jupyter Notebooks.","url":"https://paullabkorea.github.io/jupyternotebookblog/gitlanginfo/","@type":"WebPage","headline":"gitlanginfo","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/jupyternotebookblog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://paullabkorea.github.io/jupyternotebookblog/feed.xml" title="JejuCodingBaseCamp" /><link rel="shortcut icon" type="image/x-icon" href="/jupyternotebookblog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
@@ -66,111 +66,68 @@ window.onload = wrap_img;
 </header>
 <main class="page-content" aria-label="Content">
       <div class="wrapper">
-        <div class="home">
+        <img src="https://ghchart.rshah.org/paullabkorea" alt="" style="width: 660px; height: 100px;">
+<div id="repos">
+<script>
+// 사용한 언어를 return해주는 함수
+const repoLanguage = async (repo) =>{
+    let response = await fetch(`https://api.github.com/repos/paullabkorea/${repo}/languages`,
+        {headers:{
+            'Accept' : 'application/vnd.github.v3+json',
+        }});
+    let resJson = await response.json()
+    let sumcodeline = Object.values(object).reduce((a, b) => a + b, 0)
+    s = ''
+    for (const [key, value] of Object.entries(resJson)) {
+        s += `${key} : ${(value/sumcodeline)*100}%<br>`;
+    }
+    return s
+}
 
+// 비동기 작업을 위해 async function 선언
+const initRepo = async () =>{
+        const _username = 'paullabkorea'
+        const count = 5
+        
+        // 추가할 dom선택
+        const repoUl = document.getElementById("repos")
 
-<h2>Contents</h2>
+        // headers 설명 : 깃허브에 요청할 형식 지정
+        let response = await fetch('https://api.github.com/users/paullabkorea/repos?' + 'per_page=' + count,
+        {headers:{
+            'Accept' : 'application/vnd.github.v3+json'
+        }});
+        const repoJson = await response.json()
+        // repo받아온 내용 확인
+        console.log(repoJson);
+        console.log('---------');
 
-  
-  
-  
+        // json내용을 map을 이용해 각 dom을 만들고 추가
+        repoJson.map((repos)=>{
+            let h2Element = document.createElement("h2")
+            h2Element.textContent = repos.name
 
-  <ul>
-  
-    <li><a href="#deep learning">deep learning</a></li>
-  
-    <li><a href="#fastpages">fastpages</a></li>
-  
-    <li><a href="#jupyter">jupyter</a></li>
-  
-    <li><a href="#markdown">markdown</a></li>
-  
-    <li><a href="#test">test</a></li>
-  
-    <li><a href="#testTwo">testTwo</a></li>
-  
-  </ul>
+            let pElementDesc = document.createElement("p")
+            pElementDesc.textContent = "레포설명 : " + repos.description
 
-  
-      <h3 id ="deep learning"><i class="fas fa-tags category-tags-icon"></i></i> deep learning</h3>
-      <a name="deep learning"></a>
-      
-        <article class="archive-item">
-          <p class="post-meta post-meta-title"><a class="page-meta" href="/jupyternotebookblog/deep%20learning/2020/06/28/%EB%A7%88%ED%81%AC%EB%8B%A4%EC%9A%B4-%ED%85%8C%EC%8A%A4%ED%8A%B8.html">An Example Markdown Post</a>  • Jun 28, 2020</p>
-        </article>
-        
-      
-  
-      <h3 id ="fastpages"><i class="fas fa-tags category-tags-icon"></i></i> fastpages</h3>
-      <a name="fastpages"></a>
-      
-        <article class="archive-item">
-          <p class="post-meta post-meta-title"><a class="page-meta" href="/jupyternotebookblog/fastpages/jupyter/test/testtwo/2021/07/04/_07_01_%EC%97%85%EB%A1%9C%EB%93%9C_%ED%85%8C%EC%8A%A4%ED%8A%B8%EC%9A%A9.html">제목!!!!!!</a>  • Jul 4, 2021</p>
-        </article>
-        
-      
-        <article class="archive-item">
-          <p class="post-meta post-meta-title"><a class="page-meta" href="/jupyternotebookblog/fastpages/jupyter/test/2021/07/04/_06_30_(%EC%B5%9C%EC%A2%85_%EC%88%98%EC%A0%95)_%EC%86%90%EC%97%90_%EC%9E%A1%ED%9E%88%EB%8A%94_%EB%94%A5%EB%9F%AC%EB%8B%9D_%EA%B0%95%EC%9D%98%EC%9E%90%EB%A3%8C.html">제목!!</a>  • Jul 4, 2021</p>
-        </article>
-        
-      
-  
-      <h3 id ="jupyter"><i class="fas fa-tags category-tags-icon"></i></i> jupyter</h3>
-      <a name="jupyter"></a>
-      
-        <article class="archive-item">
-          <p class="post-meta post-meta-title"><a class="page-meta" href="/jupyternotebookblog/fastpages/jupyter/test/testtwo/2021/07/04/_07_01_%EC%97%85%EB%A1%9C%EB%93%9C_%ED%85%8C%EC%8A%A4%ED%8A%B8%EC%9A%A9.html">제목!!!!!!</a>  • Jul 4, 2021</p>
-        </article>
-        
-      
-        <article class="archive-item">
-          <p class="post-meta post-meta-title"><a class="page-meta" href="/jupyternotebookblog/fastpages/jupyter/test/2021/07/04/_06_30_(%EC%B5%9C%EC%A2%85_%EC%88%98%EC%A0%95)_%EC%86%90%EC%97%90_%EC%9E%A1%ED%9E%88%EB%8A%94_%EB%94%A5%EB%9F%AC%EB%8B%9D_%EA%B0%95%EC%9D%98%EC%9E%90%EB%A3%8C.html">제목!!</a>  • Jul 4, 2021</p>
-        </article>
-        
-      
-        <article class="archive-item">
-          <p class="post-meta post-meta-title"><a class="page-meta" href="/jupyternotebookblog/jupyter/2020/02/20/test.html">Fastpages Notebook Blog Post</a>  • Feb 20, 2020</p>
-        </article>
-        
-      
-  
-      <h3 id ="markdown"><i class="fas fa-tags category-tags-icon"></i></i> markdown</h3>
-      <a name="markdown"></a>
-      
-        <article class="archive-item">
-          <p class="post-meta post-meta-title"><a class="page-meta" href="/jupyternotebookblog/markdown/2020/01/14/test-markdown-post.html">An Example Markdown Post</a>  • Jan 14, 2020</p>
-        </article>
-        
-      
-  
-      <h3 id ="test"><i class="fas fa-tags category-tags-icon"></i></i> test</h3>
-      <a name="test"></a>
-      
-        <article class="archive-item">
-          <p class="post-meta post-meta-title"><a class="page-meta" href="/jupyternotebookblog/fastpages/jupyter/test/testtwo/2021/07/04/_07_01_%EC%97%85%EB%A1%9C%EB%93%9C_%ED%85%8C%EC%8A%A4%ED%8A%B8%EC%9A%A9.html">제목!!!!!!</a>  • Jul 4, 2021</p>
-        </article>
-        
-      
-        <article class="archive-item">
-          <p class="post-meta post-meta-title"><a class="page-meta" href="/jupyternotebookblog/fastpages/jupyter/test/2021/07/04/_06_30_(%EC%B5%9C%EC%A2%85_%EC%88%98%EC%A0%95)_%EC%86%90%EC%97%90_%EC%9E%A1%ED%9E%88%EB%8A%94_%EB%94%A5%EB%9F%AC%EB%8B%9D_%EA%B0%95%EC%9D%98%EC%9E%90%EB%A3%8C.html">제목!!</a>  • Jul 4, 2021</p>
-        </article>
-        
-      
-  
-      <h3 id ="testTwo"><i class="fas fa-tags category-tags-icon"></i></i> testTwo</h3>
-      <a name="testTwo"></a>
-      
-        <article class="archive-item">
-          <p class="post-meta post-meta-title"><a class="page-meta" href="/jupyternotebookblog/fastpages/jupyter/test/testtwo/2021/07/04/_07_01_%EC%97%85%EB%A1%9C%EB%93%9C_%ED%85%8C%EC%8A%A4%ED%8A%B8%EC%9A%A9.html">제목!!!!!!</a>  • Jul 4, 2021</p>
-        </article>
-        
-      
-  
+            let aElementURL = document.createElement("a")
+            aElementURL.href = repos.svn_url
+            aElementURL.textContent = repos.svn_url
 
+            //사용한 언어 불러오기
+            let language = await repoLanguage(repos.name)
+            let bElementLang = document.createElement("b")
+            bElementLang.textContent = "사용언어 : "+language.toString()
 
-
-
-</div>
+            //각 요소를 <div id="repos">에 추가
+            repoUl.append(h2Element)
+            repoUl.append(pElementDesc)
+            repoUl.append(aElementURL)
+            repoUl.append(document.createElement("br"))
+        })
+    }
+    initRepo()
+</script>
       </div>
     </main><footer class="site-footer h-card">
   <data class="u-url" href="/jupyternotebookblog/"></data>
