@@ -76,7 +76,12 @@ const repoLanguage = async (repo) =>{
             'Accept' : 'application/vnd.github.v3+json',
         }});
     let resJson = await response.json()
-    return Object.keys(resJson)
+    let sumcodeline = Object.values(object).reduce((a, b) => a + b, 0)
+    s = ''
+    for (const [key, value] of Object.entries(resJson)) {
+        s += `${key} : ${(parseFloat(value/sumcodeline).toFixed(3))*100}%<br>`;
+    }
+    return s
 }
 
 
@@ -87,8 +92,7 @@ const initRepo = async () =>{
         //갯수설정
         const count = 5;
         // headers 설명 : 깃허브에 요청할 형식 지정
-        let response = await fetch('https://api.github.com/users/paullabkorea/repos?'+
-                       'per_page='+count,
+        let response = await fetch('https://api.github.com/users/paullabkorea/repos?' + 'per_page=' + count,
         {headers:{
             'Accept' : 'application/vnd.github.v3+json',
         }});
@@ -97,7 +101,7 @@ const initRepo = async () =>{
         // console.log(repoJson);
 
         // json내용을 map을 이용해 각 dom을 만들고 추가
-				// repoLanguage 함수의 비동기 작업을 위한 async function선언
+		// repoLanguage 함수의 비동기 작업을 위한 async function선언
         repoJson.map(async (repos)=>{
             let h2Element = document.createElement("h2")
             h2Element.textContent = repos.name
@@ -109,7 +113,7 @@ const initRepo = async () =>{
             aElementURL.href = repos.svn_url
             aElementURL.textContent = repos.svn_url
 
-						//사용한 언어 불러오기
+			//사용한 언어 불러오기
             let language = await repoLanguage(repos.name)
             let bElementLang = document.createElement("b")
             bElementLang.textContent = "사용언어 : "+language.toString()
