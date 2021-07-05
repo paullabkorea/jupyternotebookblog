@@ -35,5 +35,5 @@ ICT 연구 및 (코딩)교육 기관이며 다양한 사회 공헌 활동을 하
 
 
 ### 교육 커리큘럼과 수료증 제도
-[https://drive.google.com/uc?export=view&id=17H_xIganuR-wtYjyYEzJGc55O_sfFc_T](https://drive.google.com/uc?export=view&id=17H_xIganuR-wtYjyYEzJGc55O_sfFc_T)
-[https://drive.google.com/uc?export=view&id=1dtl_XFNlYWhaANtpaESb4Xn2wJMleLnV](https://drive.google.com/uc?export=view&id=1dtl_XFNlYWhaANtpaESb4Xn2wJMleLnV)
+![https://drive.google.com/uc?export=view&id=17H_xIganuR-wtYjyYEzJGc55O_sfFc_T](https://drive.google.com/uc?export=view&id=17H_xIganuR-wtYjyYEzJGc55O_sfFc_T)
+![https://drive.google.com/uc?export=view&id=1dtl_XFNlYWhaANtpaESb4Xn2wJMleLnV](https://drive.google.com/uc?export=view&id=1dtl_XFNlYWhaANtpaESb4Xn2wJMleLnV)
