@@ -75,7 +75,9 @@
   
 
   
-      ,"page4": {
+
+  
+      ,"page5": {
           "title": "sample",
           "content": "테스트 . 테스트 페이지입니다. . 잘 작동하는지 봅니다. | 잘 작동하는지 봅니다. | 잘 작동하는지 봅니다. | 잘 작동하는지 봅니다. |",
           "url": "https://paullabkorea.github.io/jupyternotebookblog/sample/",
@@ -105,7 +107,7 @@
   
 
   
-      ,"page12": {
+      ,"page13": {
           "title": "",
           "content": "Sitemap: {{ “sitemap.xml” | absolute_url }} | .",
           "url": "https://paullabkorea.github.io/jupyternotebookblog/robots.txt",
