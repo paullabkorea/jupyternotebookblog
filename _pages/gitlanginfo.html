@@ -14,7 +14,12 @@ const repoLanguage = async (repo) =>{
             'Accept' : 'application/vnd.github.v3+json',
         }});
     let resJson = await response.json()
-    return Object.keys(resJson)
+    let sumcodeline = Object.values(resJson).reduce((a, b) => a + b, 0)
+    s = ''
+    for (const [key, value] of Object.entries(resJson)) {
+        s += `${key} : ${(parseFloat(value/sumcodeline).toFixed(3))*100}%<br>`;
+    }
+    return s
 }
 
 
@@ -49,13 +54,13 @@ const initRepo = async () =>{
 
 						//사용한 언어 불러오기
             let language = await repoLanguage(repos.name)
-            let bElementLang = document.createElement("b")
-            bElementLang.textContent = "사용언어 : "+language.toString()
+            let pElementLang = document.createElement("p")
+            pElementLang.textContent = "사용언어 : <br>"+language.toString()
             
             //각 요소를 <div id="repos">에 추가
             repoUl.append(h2Element)
             //사용언어부분 추가
-            repoUl.append(bElementLang)
+            repoUl.append(pElementLang)
             repoUl.append(pElementDesc)
             repoUl.append(aElementURL)
             repoUl.append(document.createElement("br"))
