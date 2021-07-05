@@ -1,3 +1,12 @@
+---
+layout: default
+permalink: /gitlanginfo/
+title: gitlanginfo
+search_exclude: true
+---
+<img src="https://ghchart.rshah.org/paullabkorea" alt="" style="width: 660px; height: 100px;">
+<div id="repos">
+<script>
 // 사용한 언어를 return해주는 함수
 const repoLanguage = async (repo) =>{
     let response = await fetch(`https://api.github.com/repos/paullabkorea/${repo}/languages`,
@@ -53,3 +62,4 @@ const initRepo = async () =>{
         })
     }
     initRepo()
+</script>
