@@ -54,13 +54,13 @@ const initRepo = async () =>{
 
             //사용한 언어 불러오기
             let language = await repoLanguage(repos.name)
-            let pElementLang = document.createElement("p")
-            pElementLang.textContent = "사용언어 : " + language.toString()
+            let strongElementLang = document.createElement("strong")
+            strongElementLang.textContent = "사용언어 : " + language.toString()
             
             //각 요소를 <div id="repos">에 추가
             repoUl.append(h2Element)
             //사용언어부분 추가
-            repoUl.append(pElementLang)
+            repoUl.append(strongElementLang)
             repoUl.append(pElementDesc)
             repoUl.append(aElementURL)
             repoUl.append(document.createElement("br"))
