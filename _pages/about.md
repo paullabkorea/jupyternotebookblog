@@ -32,3 +32,8 @@ ICT 연구 및 (코딩)교육 기관이며 다양한 사회 공헌 활동을 하
 또한 인프런, Edwith, 구름, 유튜브, 에듀캐스트 등의 교육 플랫폼에서 35개의 동영상 강좌를 제공하고 있으며 21년 2월 총 30,000명 이상의 수강생이 제주코딩베이스캠프의 강좌를 수강하고 있습니다.
 
 수료증 제도를 통한 나노디그리 시스템이 도입되어 있고, 수료를 한 학생에게는 취업 매칭, 콘텐츠 공동제작의 기회를 제공하고 있습니다.
+
+
+### 교육 커리큘럼과 수료증 제도
+[https://drive.google.com/uc?export=view&id=17H_xIganuR-wtYjyYEzJGc55O_sfFc_T](https://drive.google.com/uc?export=view&id=17H_xIganuR-wtYjyYEzJGc55O_sfFc_T)
+[https://drive.google.com/uc?export=view&id=1dtl_XFNlYWhaANtpaESb4Xn2wJMleLnV](https://drive.google.com/uc?export=view&id=1dtl_XFNlYWhaANtpaESb4Xn2wJMleLnV)
