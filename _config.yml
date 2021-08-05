@@ -11,7 +11,6 @@ description: An easy to use blogging platform with support for Jupyter Notebooks
 github_username: paullabkorea
 # you can comment the below line out if your repo name is not different than your baseurl
 github_repo: "jupyternotebookblog"
-use_math: true
 
 # OPTIONAL: override baseurl and url if using a custom domain
 # Note: leave out the trailing / from this value. 
@@ -44,7 +43,7 @@ minima:
     github: fastai
 
 # Set this to true to get LaTeX math equation support
-use_math: 
+use_math: true
 
 # Set this to true to display the summary of your blog post under your title on the Home page.
 show_description: true
