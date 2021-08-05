@@ -145,7 +145,7 @@
   
       ,"page5": {
           "title": "sample",
-          "content": "테스트 . 테스트 페이지입니다. . 잘 작동하는지 봅니다. | 잘 작동하는지 봅니다. | 잘 작동하는지 봅니다. | 잘 작동하는지 봅니다. |",
+          "content": "테스트 . 테스트 페이지입니다. . 잘 작동하는지 봅니다. | 잘 작동하는지 봅니다. | 잘 작동하는지 봅니다. | 잘 작동하는지 봅니다. | LaTex . $f(x)$ .",
           "url": "https://paullabkorea.github.io/jupyternotebookblog/sample/",
           "relUrl": "/sample/",
           "date": ""
