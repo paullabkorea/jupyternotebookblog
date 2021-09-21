@@ -242,8 +242,76 @@ window.onload = wrap_img;
     <div class="input_area">
 <div class=" highlight hl-python"><pre><span></span><span class="kn">import</span> <span class="nn">hashlib</span>
 
-<span class="k">class</span> <span class="nc">WenivCoin</span><span class="p">:</span>
+<span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">(</span><span class="s1">'weniv CEO leehojun'</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span> <span class="c1"># 64글자</span>
+</pre></div>
 
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'1e36bc1dc1ef931b4d5965482000613c1e38228887d569130aa8c6bab176b545'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">(</span><span class="s1">'weniv CTO leehojun'</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'8c1495b97c79ad53517f6d2787cee452f2b52fb69284cb66d2045373e2744918'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="kn">import</span> <span class="nn">hashlib</span>
+
+<span class="k">class</span> <span class="nc">WenivCoin</span><span class="p">:</span>
+    
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">앞블록해쉬</span><span class="p">,</span> <span class="n">트렌젝션리스트</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">앞블록해쉬</span> <span class="o">=</span> <span class="n">앞블록해쉬</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">트렌젝션리스트</span> <span class="o">=</span> <span class="n">트렌젝션리스트</span>
