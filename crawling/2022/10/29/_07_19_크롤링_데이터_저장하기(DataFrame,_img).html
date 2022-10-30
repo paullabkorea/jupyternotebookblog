@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>2021년 여름방학 특강 크롤링 데이터 저장하기 | JejuCodingBaseCamp</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="2021년 여름방학 특강 크롤링 데이터 저장하기" />
+<meta name="author" content="이호준" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="이미지(img), 데이터(DataFrame) 등 외부 데이터 저장하기" />
+<meta property="og:description" content="이미지(img), 데이터(DataFrame) 등 외부 데이터 저장하기" />
+<link rel="canonical" href="https://paullabkorea.github.io/jupyternotebookblog/crawling/2022/10/29/_07_19_%ED%81%AC%EB%A1%A4%EB%A7%81_%EB%8D%B0%EC%9D%B4%ED%84%B0_%EC%A0%80%EC%9E%A5%ED%95%98%EA%B8%B0(DataFrame,_img).html" />
+<meta property="og:url" content="https://paullabkorea.github.io/jupyternotebookblog/crawling/2022/10/29/_07_19_%ED%81%AC%EB%A1%A4%EB%A7%81_%EB%8D%B0%EC%9D%B4%ED%84%B0_%EC%A0%80%EC%9E%A5%ED%95%98%EA%B8%B0(DataFrame,_img).html" />
+<meta property="og:site_name" content="JejuCodingBaseCamp" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-10-29T00:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"이미지(img), 데이터(DataFrame) 등 외부 데이터 저장하기","url":"https://paullabkorea.github.io/jupyternotebookblog/crawling/2022/10/29/_07_19_%ED%81%AC%EB%A1%A4%EB%A7%81_%EB%8D%B0%EC%9D%B4%ED%84%B0_%EC%A0%80%EC%9E%A5%ED%95%98%EA%B8%B0(DataFrame,_img).html","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://paullabkorea.github.io/jupyternotebookblog/crawling/2022/10/29/_07_19_%ED%81%AC%EB%A1%A4%EB%A7%81_%EB%8D%B0%EC%9D%B4%ED%84%B0_%EC%A0%80%EC%9E%A5%ED%95%98%EA%B8%B0(DataFrame,_img).html"},"headline":"2021년 여름방학 특강 크롤링 데이터 저장하기","dateModified":"2022-10-29T00:00:00-05:00","datePublished":"2022-10-29T00:00:00-05:00","author":{"@type":"Person","name":"이호준"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/jupyternotebookblog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://paullabkorea.github.io/jupyternotebookblog/feed.xml" title="JejuCodingBaseCamp" /><link rel="shortcut icon" type="image/x-icon" href="/jupyternotebookblog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/jupyternotebookblog/">JejuCodingBaseCamp</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/jupyternotebookblog/about/">About Us</a><a class="page-link" href="/jupyternotebookblog/gitInfo/">gitInfo</a><a class="page-link" href="/jupyternotebookblog/gitlanginfo/">gitlanginfo</a><a class="page-link" href="/jupyternotebookblog/sample/">sample</a><a class="page-link" href="/jupyternotebookblog/search/">Search</a><a class="page-link" href="/jupyternotebookblog/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">2021년 여름방학 특강 크롤링 데이터 저장하기</h1><p class="page-description">이미지(img), 데이터(DataFrame) 등 외부 데이터 저장하기</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-10-29T00:00:00-05:00" itemprop="datePublished">
+        Oct 29, 2022
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">이호준</span></span>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      4 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/jupyternotebookblog/categories/#crawling">crawling</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/paullabkorea/jupyternotebookblog/tree/master/_notebooks/2020_07_19_크롤링_데이터_저장하기(DataFrame,_img).ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/jupyternotebookblog/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/paullabkorea/jupyternotebookblog/master?filepath=_notebooks%2F2020_07_19_%ED%81%AC%EB%A1%A4%EB%A7%81_%EB%8D%B0%EC%9D%B4%ED%84%B0_%EC%A0%80%EC%9E%A5%ED%95%98%EA%B8%B0%28DataFrame%2C_img%29.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/jupyternotebookblog/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/paullabkorea/jupyternotebookblog/blob/master/_notebooks/2020_07_19_크롤링_데이터_저장하기(DataFrame,_img).ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/jupyternotebookblog/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#크롤링-기본-코드">크롤링 기본 코드 </a></li>
+<li class="toc-entry toc-h2"><a href="#이미지-크롤링-데이터-저장하기">이미지 크롤링 데이터 저장하기 </a></li>
+<li class="toc-entry toc-h2"><a href="#크롤링-데이터-홈페이지로-저장하기">크롤링 데이터 홈페이지로 저장하기 </a></li>
+<li class="toc-entry toc-h2"><a href="#크롤링-이미지-데이터-파일로-저장하기">크롤링 이미지 데이터 파일로 저장하기 </a></li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2020_07_19_크롤링_데이터_저장하기(DataFrame,_img).ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="크롤링-기본-코드">
+<a class="anchor" href="#%ED%81%AC%EB%A1%A4%EB%A7%81-%EA%B8%B0%EB%B3%B8-%EC%BD%94%EB%93%9C" aria-hidden="true"><span class="octicon octicon-link"></span></a>크롤링 기본 코드<a class="anchor-link" href="#%ED%81%AC%EB%A1%A4%EB%A7%81-%EA%B8%B0%EB%B3%B8-%EC%BD%94%EB%93%9C"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s1">'수정필요'</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="n">response</span><span class="o">.</span><span class="n">encoding</span> <span class="o">=</span> <span class="s1">'utf-8'</span>
+<span class="n">html</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span>
+
+<span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">html</span><span class="p">,</span> <span class="s1">'html.parser'</span><span class="p">)</span>
+
+<span class="n">datagroup</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'수정필요'</span><span class="p">)</span> <span class="c1"># 클래스 '.' , 아이디 '#' </span>
+<span class="k">for</span> <span class="n">no</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">datagroup</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">no</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s1">'https://ridibooks.com/category/bestsellers/2200'</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="n">response</span><span class="o">.</span><span class="n">encoding</span> <span class="o">=</span> <span class="s1">'utf-8'</span>
+<span class="n">html</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span>
+
+<span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">html</span><span class="p">,</span> <span class="s1">'html.parser'</span><span class="p">)</span>
+
+<span class="n">datagroup</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'.title_text'</span><span class="p">)</span> <span class="c1"># 클래스 '.' , 아이디 '#' </span>
+<span class="k">for</span> <span class="n">no</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">datagroup</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">no</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>1 한 권으로 읽는 컴퓨터 구조와 프로그래밍
+2 개발자에서 아키텍트로
+3 시드 마이어
+4 컨테이너 인프라 환경 구축을 위한 쿠버네티스/도커
+5 오브젝트
+6 풀스택 서버리스
+7 업무에 바로 쓰는 SQL 튜닝
+8 웹소설 써서 먹고삽니다
+9 메타버스, 이미 시작된 미래
+10 파이썬으로 살펴보는 아키텍처 패턴
+11 그림으로 이해하는 AWS 구조와 기술
+12 개정판 | 리팩터링 (2판)
+13 데이터 스토리
+14 러닝 리액트(2판)
+15 일잘러의 비밀, 구글 스프레드시트 제대로 파헤치기
+16 눈치껏 못 배웁니다, 일센스
+17 스프링 부트와 AWS로 혼자 구현하는 웹 서비스
+18 로블록스 게임 제작 무작정 따라하기
+19 Do it! 점프 투 파이썬 -전면 개정판
+20 UX/UI의 10가지 심리학 법칙
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="이미지-크롤링-데이터-저장하기">
+<a class="anchor" href="#%EC%9D%B4%EB%AF%B8%EC%A7%80-%ED%81%AC%EB%A1%A4%EB%A7%81-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%80%EC%9E%A5%ED%95%98%EA%B8%B0" aria-hidden="true"><span class="octicon octicon-link"></span></a>이미지 크롤링 데이터 저장하기<a class="anchor-link" href="#%EC%9D%B4%EB%AF%B8%EC%A7%80-%ED%81%AC%EB%A1%A4%EB%A7%81-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%80%EC%9E%A5%ED%95%98%EA%B8%B0"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="kn">import</span> <span class="nn">shutil</span> <span class="c1"># 고수준의 파일연산 라이브러리</span>
+<span class="kn">import</span> <span class="nn">requests</span> <span class="c1"># request를 보낼 수 있는 라이브러리</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s1">'https://img.ridicdn.net/cover/194000109/xxlarge#1'</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'sample.jpg'</span><span class="p">,</span> <span class="s1">'wb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">r</span><span class="o">.</span><span class="n">raw</span><span class="o">.</span><span class="n">decode_content</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">shutil</span><span class="o">.</span><span class="n">copyfileobj</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">raw</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'https://img.ridicdn.net/cover/194000109/xxlarge#1'</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'test.jpg'</span><span class="p">,</span> <span class="s1">'wb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">iter_content</span><span class="p">(</span><span class="mi">1024</span><span class="p">):</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="크롤링-데이터-홈페이지로-저장하기">
+<a class="anchor" href="#%ED%81%AC%EB%A1%A4%EB%A7%81-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%99%88%ED%8E%98%EC%9D%B4%EC%A7%80%EB%A1%9C-%EC%A0%80%EC%9E%A5%ED%95%98%EA%B8%B0" aria-hidden="true"><span class="octicon octicon-link"></span></a>크롤링 데이터 홈페이지로 저장하기<a class="anchor-link" href="#%ED%81%AC%EB%A1%A4%EB%A7%81-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%99%88%ED%8E%98%EC%9D%B4%EC%A7%80%EB%A1%9C-%EC%A0%80%EC%9E%A5%ED%95%98%EA%B8%B0"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s1">'https://ridibooks.com/category/bestsellers/2200'</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="n">response</span><span class="o">.</span><span class="n">encoding</span> <span class="o">=</span> <span class="s1">'utf-8'</span>
+<span class="n">html</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span>
+
+<span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">html</span><span class="p">,</span> <span class="s1">'html.parser'</span><span class="p">)</span>
+
+<span class="n">datagroup</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'.thumbnail'</span><span class="p">)</span> <span class="c1"># 클래스 '.' , 아이디 '#' </span>
+
+<span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">datagroup</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">'https:'</span> <span class="o">+</span> <span class="n">data</span><span class="p">[</span><span class="s1">'data-src'</span><span class="p">][:</span><span class="o">-</span><span class="mi">7</span><span class="p">]</span> <span class="o">+</span> <span class="s1">'xxlarge#1'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>https://img.ridicdn.net/cover/194000109/xxlarge#1
+https://img.ridicdn.net/cover/3649000021/xxlarge#1
+https://img.ridicdn.net/cover/443000917/xxlarge#1
+https://img.ridicdn.net/cover/194000106/xxlarge#1
+https://img.ridicdn.net/cover/754031863/xxlarge#1
+https://img.ridicdn.net/cover/4489000001/xxlarge#1
+https://img.ridicdn.net/cover/443000912/xxlarge#1
+https://img.ridicdn.net/cover/754031846/xxlarge#1
+https://img.ridicdn.net/cover/222002588/xxlarge#1
+https://img.ridicdn.net/cover/2777000044/xxlarge#1
+https://img.ridicdn.net/cover/1160000024/xxlarge#1
+https://img.ridicdn.net/cover/1370000008/xxlarge#1
+https://img.ridicdn.net/cover/1160000029/xxlarge#1
+https://img.ridicdn.net/cover/443000859/xxlarge#1
+https://img.ridicdn.net/cover/3903000015/xxlarge#1
+https://img.ridicdn.net/cover/754026976/xxlarge#1
+https://img.ridicdn.net/cover/194000105/xxlarge#1
+https://img.ridicdn.net/cover/3780000117/xxlarge#1
+https://img.ridicdn.net/cover/443000914/xxlarge#1
+https://img.ridicdn.net/cover/443000907/xxlarge#1
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="s1">'https:'</span> <span class="o">+</span> <span class="n">datagroup</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">'data-src'</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'https://img.ridicdn.net/cover/194000109/large#1'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s1">'https://ridibooks.com/category/bestsellers/2200'</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="n">response</span><span class="o">.</span><span class="n">encoding</span> <span class="o">=</span> <span class="s1">'utf-8'</span>
+<span class="n">html</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span>
+
+<span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">html</span><span class="p">,</span> <span class="s1">'html.parser'</span><span class="p">)</span>
+
+<span class="n">책순위</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">책제목</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">책이미지</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">책제목크롤링</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'.title_text'</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">no</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">책제목크롤링</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="n">책순위</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">no</span><span class="p">)</span>
+    <span class="n">책제목</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+
+<span class="n">책이미지크롤링</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'.thumbnail'</span><span class="p">)</span> 
+
+<span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">책이미지크롤링</span><span class="p">:</span>
+    <span class="n">책이미지</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">'https:'</span> <span class="o">+</span> <span class="n">data</span><span class="p">[</span><span class="s1">'data-src'</span><span class="p">][:</span><span class="o">-</span><span class="mi">7</span><span class="p">]</span> <span class="o">+</span> <span class="s1">'xxlarge#1'</span><span class="p">)</span>
+
+<span class="n">데이터</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'책순위'</span><span class="p">:</span><span class="n">책순위</span><span class="p">,</span>
+    <span class="s1">'책제목'</span><span class="p">:</span><span class="n">책제목</span><span class="p">,</span>
+    <span class="s1">'책이미지'</span><span class="p">:</span><span class="n">책이미지</span>
+<span class="p">}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">데이터</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">데이터</span><span class="p">)</span>
+<span class="n">데이터</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>책순위</th>
+      <th>책제목</th>
+      <th>책이미지</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>시드 마이어</td>
+      <td>https://img.ridicdn.net/cover/194000109/xxlarge#1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>한 권으로 읽는 컴퓨터 구조와 프로그래밍</td>
+      <td>https://img.ridicdn.net/cover/3649000021/xxlar...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>개발자에서 아키텍트로</td>
+      <td>https://img.ridicdn.net/cover/443000917/xxlarge#1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>Node.js 디자인 패턴 바이블</td>
+      <td>https://img.ridicdn.net/cover/194000106/xxlarge#1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>컨테이너 인프라 환경 구축을 위한 쿠버네티스/도커</td>
+      <td>https://img.ridicdn.net/cover/754031863/xxlarge#1</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>비전공자를 위한 이해할 수 있는 IT 지식</td>
+      <td>https://img.ridicdn.net/cover/4489000001/xxlar...</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>7</td>
+      <td>파이썬으로 살펴보는 아키텍처 패턴</td>
+      <td>https://img.ridicdn.net/cover/443000912/xxlarge#1</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>8</td>
+      <td>Let's Get IT 자바스크립트 프로그래밍</td>
+      <td>https://img.ridicdn.net/cover/754031846/xxlarge#1</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>9</td>
+      <td>눈치껏 못 배웁니다, 일센스</td>
+      <td>https://img.ridicdn.net/cover/222002588/xxlarge#1</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>10</td>
+      <td>메타버스, 이미 시작된 미래</td>
+      <td>https://img.ridicdn.net/cover/2777000044/xxlar...</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>11</td>
+      <td>모던 자바스크립트 Deep Dive</td>
+      <td>https://img.ridicdn.net/cover/1160000024/xxlar...</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>12</td>
+      <td>비전공자도 배워서 바로 쓰는 비즈니스 데이터 분석 입문</td>
+      <td>https://img.ridicdn.net/cover/1370000008/xxlar...</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>13</td>
+      <td>개정판 | 시작하세요! 도커/쿠버네티스</td>
+      <td>https://img.ridicdn.net/cover/1160000029/xxlar...</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>14</td>
+      <td>혼자 공부하는 머신러닝+딥러닝</td>
+      <td>https://img.ridicdn.net/cover/443000859/xxlarge#1</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>15</td>
+      <td>스프링 부트와 AWS로 혼자 구현하는 웹 서비스</td>
+      <td>https://img.ridicdn.net/cover/3903000015/xxlar...</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>16</td>
+      <td>개정판 | 리액트를 다루는 기술</td>
+      <td>https://img.ridicdn.net/cover/754026976/xxlarge#1</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>17</td>
+      <td>다재다능 코틀린 프로그래밍</td>
+      <td>https://img.ridicdn.net/cover/194000105/xxlarge#1</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>18</td>
+      <td>Vue.js 프로젝트 투입 일주일 전</td>
+      <td>https://img.ridicdn.net/cover/3780000117/xxlar...</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>19</td>
+      <td>NGINX 쿡북</td>
+      <td>https://img.ridicdn.net/cover/443000914/xxlarge#1</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>20</td>
+      <td>일잘러의 비밀, 구글 스프레드시트 제대로 파헤치기</td>
+      <td>https://img.ridicdn.net/cover/443000907/xxlarge#1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="k">def</span> <span class="nf">이미지양식변환</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s1">'&lt;img src="'</span><span class="o">+</span> <span class="n">path</span> <span class="o">+</span> <span class="s1">'" width="100px" &gt;'</span>
+
+<span class="n">데이터</span><span class="o">.</span><span class="n">to_html</span><span class="p">(</span><span class="s1">'index.html'</span><span class="p">,</span> <span class="n">escape</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">formatters</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">책이미지</span><span class="o">=</span><span class="n">이미지양식변환</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="s1">''</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">책순위</span><span class="p">,</span> <span class="n">책제목</span><span class="p">,</span> <span class="n">책이미지</span><span class="p">):</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">'&lt;tr&gt;</span><span class="se">\</span>
+<span class="s1">                &lt;td&gt;</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&lt;/td&gt;</span><span class="se">\</span>
+<span class="s1">                &lt;td&gt;</span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s1">&lt;/td&gt;</span><span class="se">\</span>
+<span class="s1">                &lt;td&gt;&lt;img src=</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">&gt;&lt;/td&gt;</span><span class="se">\</span>
+<span class="s1">           &lt;/tr&gt;'</span>
+<span class="n">s</span> <span class="o">=</span> <span class="s1">'&lt;table&gt;'</span> <span class="o">+</span> <span class="n">s</span> <span class="o">+</span> <span class="s1">'&lt;/table&gt;'</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"노동.html"</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="크롤링-이미지-데이터-파일로-저장하기">
+<a class="anchor" href="#%ED%81%AC%EB%A1%A4%EB%A7%81-%EC%9D%B4%EB%AF%B8%EC%A7%80-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%8C%8C%EC%9D%BC%EB%A1%9C-%EC%A0%80%EC%9E%A5%ED%95%98%EA%B8%B0" aria-hidden="true"><span class="octicon octicon-link"></span></a>크롤링 이미지 데이터 파일로 저장하기<a class="anchor-link" href="#%ED%81%AC%EB%A1%A4%EB%A7%81-%EC%9D%B4%EB%AF%B8%EC%A7%80-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%8C%8C%EC%9D%BC%EB%A1%9C-%EC%A0%80%EC%9E%A5%ED%95%98%EA%B8%B0"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">import</span> <span class="nn">shutil</span> <span class="c1"># 고수준의 파일연산 라이브러리</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s1">'https://ridibooks.com/category/bestsellers/2200'</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="n">response</span><span class="o">.</span><span class="n">encoding</span> <span class="o">=</span> <span class="s1">'utf-8'</span>
+<span class="n">html</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span>
+
+<span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">html</span><span class="p">,</span> <span class="s1">'html.parser'</span><span class="p">)</span>
+
+<span class="n">datagroup</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'.thumbnail'</span><span class="p">)</span> <span class="c1"># 클래스 '.' , 아이디 '#' </span>
+
+<span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">datagroup</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">'https:'</span> <span class="o">+</span> <span class="n">data</span><span class="p">[</span><span class="s1">'data-src'</span><span class="p">][:</span><span class="o">-</span><span class="mi">7</span><span class="p">]</span> <span class="o">+</span> <span class="s1">'xxlarge#1'</span><span class="p">)</span>
+
+<span class="sd">'''</span>
+<span class="sd">url = 'https://img.ridicdn.net/cover/194000109/xxlarge#1'</span>
+<span class="sd">r = requests.get(url, stream=True)</span>
+<span class="sd">with open('sample.jpg', 'wb') as f:</span>
+<span class="sd">    r.raw.decode_content = True</span>
+<span class="sd">    shutil.copyfileobj(r.raw, f)</span>
+<span class="sd">'''</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>https://img.ridicdn.net/cover/3649000021/xxlarge#1
+https://img.ridicdn.net/cover/443000917/xxlarge#1
+https://img.ridicdn.net/cover/194000109/xxlarge#1
+https://img.ridicdn.net/cover/754031863/xxlarge#1
+https://img.ridicdn.net/cover/1160000027/xxlarge#1
+https://img.ridicdn.net/cover/443000925/xxlarge#1
+https://img.ridicdn.net/cover/443000922/xxlarge#1
+https://img.ridicdn.net/cover/754031183/xxlarge#1
+https://img.ridicdn.net/cover/2777000044/xxlarge#1
+https://img.ridicdn.net/cover/443000912/xxlarge#1
+https://img.ridicdn.net/cover/754031919/xxlarge#1
+https://img.ridicdn.net/cover/443000786/xxlarge#1
+https://img.ridicdn.net/cover/443000924/xxlarge#1
+https://img.ridicdn.net/cover/443000923/xxlarge#1
+https://img.ridicdn.net/cover/443000907/xxlarge#1
+https://img.ridicdn.net/cover/222002588/xxlarge#1
+https://img.ridicdn.net/cover/3903000015/xxlarge#1
+https://img.ridicdn.net/cover/754031983/xxlarge#1
+https://img.ridicdn.net/cover/754026225/xxlarge#1
+https://img.ridicdn.net/cover/3649000017/xxlarge#1
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">import</span> <span class="nn">shutil</span> <span class="c1"># 고수준의 파일연산 라이브러리</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s1">'https://ridibooks.com/category/bestsellers/2200'</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="n">response</span><span class="o">.</span><span class="n">encoding</span> <span class="o">=</span> <span class="s1">'utf-8'</span>
+<span class="n">html</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span>
+
+<span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">html</span><span class="p">,</span> <span class="s1">'html.parser'</span><span class="p">)</span>
+
+<span class="n">datagroup</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'.thumbnail'</span><span class="p">)</span> <span class="c1"># 클래스 '.' , 아이디 '#' </span>
+<span class="n">filename</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">datagroup</span><span class="p">:</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s1">'https:'</span> <span class="o">+</span> <span class="n">data</span><span class="p">[</span><span class="s1">'data-src'</span><span class="p">][:</span><span class="o">-</span><span class="mi">7</span><span class="p">]</span> <span class="o">+</span> <span class="s1">'xxlarge#1'</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1">#성산일출봉 폴더에 다운로드 받아 저장합니다.</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'성산일출봉/'</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="o">+</span> <span class="s1">'.jpg'</span><span class="p">,</span> <span class="s1">'wb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">r</span><span class="o">.</span><span class="n">raw</span><span class="o">.</span><span class="n">decode_content</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">copyfileobj</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">raw</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+    <span class="n">filename</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances 
+<script src="https://utteranc.es/client.js"
+        repo="paullabkorea/jupyternotebookblog"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script> -->
+<div id="disqus_thread"></div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://jejucodincampsampledi.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a class="u-url" href="/jupyternotebookblog/crawling/2022/10/29/_07_19_%ED%81%AC%EB%A1%A4%EB%A7%81_%EB%8D%B0%EC%9D%B4%ED%84%B0_%EC%A0%80%EC%9E%A5%ED%95%98%EA%B8%B0(DataFrame,_img).html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/jupyternotebookblog/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/jupyternotebookblog/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/jupyternotebookblog/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>An easy to use blogging platform with support for Jupyter Notebooks.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/fastai" target="_blank" title="fastai"><svg class="svg-icon grey"><use xlink:href="/jupyternotebookblog/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/fastdotai" target="_blank" title="fastdotai"><svg class="svg-icon grey"><use xlink:href="/jupyternotebookblog/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
